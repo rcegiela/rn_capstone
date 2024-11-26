@@ -15,7 +15,7 @@ const OnboardingScreen = () => {
 
     return (
         <View style={theme.container}>
-            <View style={styles.header}>
+            <View style={theme.header}>
                 <Image source={require('../assets/Logo.png')} style={styles.logo} />
             </View>
 
@@ -51,13 +51,6 @@ const OnboardingScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    header: {
-        width: '100%',
-        padding: 10,
-        marginBottom: 10,
-        backgroundColor: defaultTheme.colors.secondary3,
-        alignItems: 'center',
-    },
     logo: {
         width: '80%',
         height: 100,

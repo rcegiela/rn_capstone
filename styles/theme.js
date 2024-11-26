@@ -26,12 +26,13 @@ export const defaultTheme = {
     },
     caption: {
         fontSize: 14,
-        color: 'gray',
+        color: colors.primary1,
         marginBottom: 5,
     },
     textInput: {
+        fontSize: 16,
         height: 40,
-        borderColor: 'gray',
+        borderColor: colors.primary1,
         borderWidth: 1,
         marginBottom: 10,
         paddingLeft: 8,
@@ -65,14 +66,53 @@ export const defaultTheme = {
         marginLeft: 10,
         marginBottom: 10
     },
+    toggleButton: {
+        //...niceButton,
+        alignItems: 'center',
+        opacity: 0.8,
+        padding: 10,
+        borderRadius: 5,
+        borderWidth: 0,
+        margin: 5,
+    },
+    toggleButtonText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    toggleButtonOff: {
+        backgroundColor: colors.secondary3,
+    },
+    toggleButtonOn: {
+        backgroundColor: colors.primary1,
+    },
+    toggleButtonTextOff: {
+        color: colors.secondary4,
+    },
+    toggleButtonTextOn: {
+        color: colors.secondary3,
+    },
+    toggleButtonLine: {
+        flexDirection: 'row',
+        padding: 10,
+        backgroundColor: 'white'
+    },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         width: '100%',
         padding: 20,
     },
+    header: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        marginBottom: 10,
+        backgroundColor: colors.secondary3,
+        alignItems: 'center',
+    },
     headerText: {
-        color: '#000',
+        color: colors.secondary4,
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
@@ -90,5 +130,22 @@ export const defaultTheme = {
         borderWidth: 1,
         borderColor: colors.primary1,
         marginRight: 10,
+    },
+    menuItemName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 10,
+        color: colors.secondary4,
+    },
+    menuItemDescription: {
+        fontSize: 16,
+        color: colors.primary1,
+        marginTop: 10,
+    },
+    menuItemPrice: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 10,
+        color: colors.primary1,
     },
 }

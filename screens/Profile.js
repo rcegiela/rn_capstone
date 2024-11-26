@@ -7,6 +7,7 @@ import { useTheme } from '../styles/ThemeProvider';
 import CaptionedTextInput from '../components/CaptionedTextInput';
 import NiceButton from '../components/NiceButton';
 import CheckboxWithText from '../components/CheckboxWithText';
+import Avatar from '../components/Avatar';
 import { validateEmail, validatePhoneNumber, validateName, validateProfile } from '../utils/validators'
 
 const ProfileScreen = () => {
@@ -20,13 +21,8 @@ const ProfileScreen = () => {
             <Text style={theme.caption}>Avatar</Text>            
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15}}>
 
-                <View style={theme.avatar}>
-                    <Image
-                        source={require('../assets/Avatar.webp')}
-                        style={{ width: '100%', height: '100%' }}
-                    />
-                </View>
-
+                <Avatar size={100} />
+            
                 <NiceButton
                     text="Change"
                     onPress={() => alert('Change Photo')}

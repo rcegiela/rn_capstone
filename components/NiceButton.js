@@ -10,7 +10,7 @@ const NiceButton = ({ text, style = {}, disabled, ...opacityProps }) => {
 
   return (
     <TouchableOpacity
-        style={{...theme.niceButton, ...opacityStyle, opacity: disabled && 0.5}}
+        style={{...theme.niceButton, ...opacityStyle, opacity: disabled && 0.5}} // do we need the opacity conditional?
         disabled={disabled}
         {...opacityProps}
     >
