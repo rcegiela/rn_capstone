@@ -5,18 +5,20 @@ import ToggleButtonLine from '../components/ToggleButtonLine';
 import HeroBanner from '../components/HeroBanner';
 import { useTheme } from '../styles/ThemeProvider';
 import NiceButton from '../components/NiceButton';
+import { fetchData } from '../utils/fetchData';
 
 const HomeScreen = () => {
     const [data, setData] = useState([]);
     const { theme } = useTheme();
 
-   useEffect(() => {
-        fetch('https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json')
-        .then((response) => response.json())
-        .then((data) => {
-            setData(data.menu);
-        });
-    }, []);
+    useEffect(() => {
+        const doFetchData = async () => {
+            console.log('Fetching menu (HomeScreen)...');
+            const data = await fetchData();
+            setData(data['menu']);
+        };
+        doFetchData();
+    } , []);
     
     return (
       <View style={theme.container}>

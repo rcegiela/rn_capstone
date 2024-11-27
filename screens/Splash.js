@@ -1,13 +1,16 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
+import Logo from '../components/Logo';
+import { useTheme } from '../styles/ThemeProvider';
+import { ThemeContext } from '@react-navigation/native';
 
-const SplashScreen = () => {
+const SplashScreen = ({ text }) => {
+    const { theme } = useTheme();
+
     return (
-        <View style={styles.container}>
-            <Image 
-                source={require('../assets/Logo.png')} 
-                style={styles.logo} 
-            />
+        <View style={[theme.container, styles.container]}>
+            <Logo />
+            <Text style={theme.caption}>{text}</Text>
         </View>
     );
 };
@@ -18,12 +21,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-    },
-    logo: {
-        width: '100%',
-        height: 200,
-        resizeMode: 'contain'
-    },
+    }
 });
 
 export default SplashScreen;

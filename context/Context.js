@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from '../screens/Splash';
 import { validateProfile } from '../utils/validators';
+import { connectToDatabase, createTables } from '../utils/databasen';
 
 const Context = createContext();
 const useAppContext = () => useContext(Context);
@@ -19,8 +20,6 @@ const ContextProvider = ({ children }) => {
         } catch (error) {
             console.error('Failed to load data from AsyncStorage', error);
         } finally {
-            await new Promise(resolve => setTimeout(resolve, 300));
-            setIsLoading(false);
         }
     };
 
@@ -56,17 +55,30 @@ const ContextProvider = ({ children }) => {
         return rest;
       });
     };
+    
+    useEffect(() => {
+      const doFetchData = async () => {
+        console.log('Loading profile...');
+        await loadState();
 
-    useEffect(() => {loadState();}, []);
+        console.log('Database...')
+        connectToDatabase();
+        createTables();
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setIsLoading(false);
+      }
+      doFetchData();
+    }, []);
 
     if (isLoading) {
-      return <SplashScreen />;
+      return <SplashScreen text={'Loading profile...'}/>;
     }
 
     return (
       <Context.Provider value={{ state,
           updateValue, removeValue, setState, loadState, saveState, resetState }}>
-        {children}
+            {children}
       </Context.Provider>
     );
 };

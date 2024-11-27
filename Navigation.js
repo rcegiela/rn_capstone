@@ -12,12 +12,8 @@ import { View, Text, StyleSheet, Image, TextInput, ScrollView } from 'react-nati
 
 const Stack = createNativeStackNavigator();
 
-const TwoScreens = () => {
+const Navigation = () => {
     const { state } = useAppContext()
-
-    /* if (state.isLoading === true) {
-        return <SplashScreen />
-    } */
 
     return(
         <Stack.Navigator>
@@ -27,7 +23,7 @@ const TwoScreens = () => {
                         name="Home"
                         component={HomeScreen}
                         options={{
-                            headerTitle: () => <Logo size={40} />,
+                            headerTitle: ()=><Logo size={40} />,
                             headerRight: ()=><AvatarButton size={40} />
                         }}
                     />
@@ -39,4 +35,4 @@ const TwoScreens = () => {
         </Stack.Navigator>
     )}
 
-export default TwoScreens
+    export default Navigation

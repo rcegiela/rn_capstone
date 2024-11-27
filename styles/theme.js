@@ -148,4 +148,31 @@ export const defaultTheme = {
         marginTop: 10,
         color: colors.primary1,
     },
+    heroBox: {
+        backgroundColor: colors.primary1,
+        paddingLeft: 20
+    },
+    heroHeader: {
+        fontSize: 64,
+        fontFamily: 'MarkaziText-Regular',
+        color: colors.primary2,
+        marginBottom: 0
+    },
+    heroSubHeader: {
+        fontSize: 32,
+        marginTop: 0,
+        lineHeight: 32,
+        fontFamily: 'MarkaziText-Regular',
+        color: colors.secondary3
+    },
+    heroText: {
+        color: colors.secondary3
+    },
+    heroImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 16,
+        marginRight: 10,
+        resizeMode: 'cover'
+    }
 }
