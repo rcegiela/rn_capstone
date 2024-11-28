@@ -1,38 +1,29 @@
-import { enablePromise, openDatabase } from 'react-native-sqlite-storage';
+const createDB = async(templateObj) => {
+  const dbName = 'menuDb'
+  const tableName = 'menu'
+  const db = await SQLite.openDatabaseAsync(dbName);
+  
+  const columns = Object.keys(templateObj).map(key => {
+    const type = typeof obj[key];
+    switch (type) {
+        case 'number':
+            return `${key} INTEGER`;
+        case 'string':
+            return `${key} TEXT`;
+        case 'boolean':
+            return `${key} BOOLEAN`;
+        default:
+            return `${key} TEXT`;
+    }}).join(', ');
 
-enablePromise(true);
+  await db.execAsync(
+    `PRAGMA journal_mode = WAL;`
+    `DROP TABLE IF EXISTS ${tableName};`
+    `CREATE TABLE IF NOT EXISTS ${tableName} (id INTEGER PRIMARY KEY AUTOINCREMENT, ${columns});`,
+    );
 
-const connectToDatabase = async () => {
-  return openDatabase(
-    { name: 'example.db', location: 'default' },
-    () => { console.log("Database opened") },
-    (error) => { console.error("Error: ", error) }
-  );
+    const columnQuery = await db.getAllAsync(`PRAGMA table_info(${tableName});`);
+    console.log(columnQuery);
 }
 
-const createTables = async (db) => {
-    const userPreferencesQuery = `
-      CREATE TABLE IF NOT EXISTS UserPreferences (
-        id INTEGER DEFAULT 1,
-        colorPreference TEXT,
-        languagePreference TEXT,
-        PRIMARY KEY(id)
-      );
-    `;
-    const contactsQuery = `
-      CREATE TABLE IF NOT EXISTS Contacts (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        firstName TEXT,
-        name TEXT,
-        phoneNumber TEXT
-      );
-    `;
-    try {
-      await db.executeSql(userPreferencesQuery);
-      await db.executeSql(contactsQuery);
-    } catch (error) {
-      console.error("Failed to create tables: ", error);
-    }
-  };
-
-  export { connectToDatabase, createTables };
+export { createDB };

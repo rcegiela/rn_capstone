@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from '../screens/Splash';
 import { validateProfile } from '../utils/validators';
-import { connectToDatabase, createTables } from '../utils/databasen';
+//import { createtDB } from '../utils/databasen';
 
 const Context = createContext();
 const useAppContext = () => useContext(Context);
@@ -61,12 +61,9 @@ const ContextProvider = ({ children }) => {
         console.log('Loading profile...');
         await loadState();
 
-        console.log('Database...')
-        connectToDatabase();
-        createTables();
-
         await new Promise(resolve => setTimeout(resolve, 1000));
         setIsLoading(false);
+        console.log('Profile loaded');
       }
       doFetchData();
     }, []);
