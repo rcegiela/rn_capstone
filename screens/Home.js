@@ -22,8 +22,8 @@ const HomeScreen = () => {
         doFetchData();
     } , [filter, search]);
 
-    console.log('Filter: ',filter);
-    console.log('Search: ',search);
+    // console.log('Filter: ',filter);
+    // console.log('Search: ',search);
     
     return (
       <View style={theme.container}>

@@ -9,23 +9,15 @@ const SearchInput = () => {
     const { theme } = useTheme();
     const { search, setSearch } = useAppContext();
 
-   /*  const debouncedChangeHandler = useCallback(
-        debounce((value) => {console.log("Debounced input:", value);}, 500),[]
-      );
+    const debouncedChangeHandler = debounce((value)=>setSearch(value), 500)
     
-      const handleChange = (input) => {
-        setSearch(input);
-        debouncedChangeHandler(input);
-      };
-
- */
     return (
         <View style={theme.searchContainer}>
             <Ionicons name="search-sharp" size={20} color="#999" style={theme.searchIcon} />
             <TextInput
                 style={theme.searchInput}
                 placeholder="Search"
-                onChangeText={(value)=>setSearch(value)}
+                onChangeText={debouncedChangeHandler}
             />
         </View>
     );
