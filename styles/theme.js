@@ -174,5 +174,22 @@ export const defaultTheme = {
         borderRadius: 16,
         marginRight: 10,
         resizeMode: 'cover'
-    }
+    },
+    searchContainer: {
+        flexDirection: 'row',
+        backgroundColor: colors.secondary3,
+        alignItems: 'center',
+        borderRadius: 20,
+        margin: 10,
+    },
+    searchIcon: {
+        width: 20,
+        height: 20,
+        margin: 10,
+        color: colors.primary1,
+    },
+    searchInput: {
+        color: 'black',
+        placeholderTextColor: colors.secondary4,
+    },
 }

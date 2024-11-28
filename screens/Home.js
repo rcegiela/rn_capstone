@@ -6,24 +6,29 @@ import HeroBanner from '../components/HeroBanner';
 import { useTheme } from '../styles/ThemeProvider';
 import NiceButton from '../components/NiceButton';
 import { fetchData } from '../utils/fetchData';
+import { useAppContext } from '../context/Context';
+import { retrieveRecords, getCategories } from '../utils/databasen';
 
 const HomeScreen = () => {
     const [data, setData] = useState([]);
     const { theme } = useTheme();
+    const { filter, setFilter, search } = useAppContext();
 
     useEffect(() => {
         const doFetchData = async () => {
-            console.log('Fetching menu (HomeScreen)...');
-            const data = await fetchData();
-            setData(data['menu']);
+            const data = await retrieveRecords(filter, search);
+            setData(data);
         };
         doFetchData();
-    } , []);
+    } , [filter, search]);
+
+    console.log('Filter: ',filter);
+    console.log('Search: ',search);
     
     return (
       <View style={theme.container}>
             <HeroBanner />
-            <ToggleButtonLine buttons={['Appetizers', 'Entrees', 'Mains', 'Desserts', 'Drinks']} />
+            <ToggleButtonLine buttons={['Starters', 'Mains', 'Desserts', 'Drinks']} />
             <View style={{flex: 1, height: '100%'}}>
                 <FlatList
                     data={data}

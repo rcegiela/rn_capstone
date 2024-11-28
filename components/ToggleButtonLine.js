@@ -1,17 +1,19 @@
 import { React, useState } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import ToggleButton from './ToggleButton';
 import NiceButton from './NiceButton';
 import { useTheme } from '../styles/ThemeProvider';
+import { useAppContext } from '../context/Context';
 
 const ToggleButtonLine = ({ buttons }) => {
     const { theme } = useTheme();
+    const { filter, setFilter } = useAppContext();
 
     const createObjectFromNames = (names) => names.reduce((acc, name) => ({ ...acc, [name]: null }), {});
-      
-    [buttonsState, setButtons] = useState(createObjectFromNames(buttons));
-
+    const activeButtons = (buttons) => Object.keys(buttons).filter(key => buttons[key]);
     const updateButton = (item, value) => setButtons(prevState => ({...prevState,[item]:value }));
+
+    const [buttonsState, setButtons] = useState(createObjectFromNames(buttons));
 
     return (
         <View>
@@ -23,7 +25,10 @@ const ToggleButtonLine = ({ buttons }) => {
                 <ToggleButton
                     text='All'
                     isOn={Object.values(buttonsState).every((value) => !value)}
-                    onChange={(value)=>setButtons(createObjectFromNames(buttons))}
+                    onChange={(value)=>{
+                        setButtons(createObjectFromNames(buttons));
+                        setFilter([]);
+                    }}
                     key='All'
                 />
 
@@ -31,7 +36,10 @@ const ToggleButtonLine = ({ buttons }) => {
                     <ToggleButton
                         text={name}
                         isOn={buttonsState[name]}
-                        onChange={(value)=>updateButton(name,value)}
+                        onChange={(value)=>{
+                            updateButton(name,value);
+                            setFilter(activeButtons({...buttonsState, [name]: value}));
+                        }}
                         key={name}
                     />
                 ))}

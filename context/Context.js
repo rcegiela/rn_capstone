@@ -2,13 +2,16 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from '../screens/Splash';
 import { validateProfile } from '../utils/validators';
-//import { createtDB } from '../utils/databasen';
+import { fetchData } from '../utils/fetchData';
+import { createDatabase } from '../utils/databasen';
 
 const Context = createContext();
 const useAppContext = () => useContext(Context);
 
 const ContextProvider = ({ children }) => {
     const [state, setState] = useState({});
+    const [filter, setFilter] = useState([]);
+    const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(true);
 
     const loadState = async () => {
@@ -60,10 +63,15 @@ const ContextProvider = ({ children }) => {
       const doFetchData = async () => {
         console.log('Loading profile...');
         await loadState();
+        
+        console.log('Fetching data...');
+        const data = await fetchData();
 
+        console.log('Creating database...');
+        createDatabase(data['menu']);
+        
         await new Promise(resolve => setTimeout(resolve, 1000));
         setIsLoading(false);
-        console.log('Profile loaded');
       }
       doFetchData();
     }, []);
@@ -73,8 +81,12 @@ const ContextProvider = ({ children }) => {
     }
 
     return (
-      <Context.Provider value={{ state,
-          updateValue, removeValue, setState, loadState, saveState, resetState }}>
+      <Context.Provider value={{
+        state, setState, 
+        filter, setFilter,
+        search, setSearch,
+        updateValue, removeValue, loadState, saveState, resetState
+        }}>
             {children}
       </Context.Provider>
     );
